@@ -36,6 +36,13 @@ const getAuthorById = async (req, res) => {
 const createAuthor = async (req, res) => {
     try {
         const { name, birthYear, nationality, bio } = req.body;
+        if (!name || typeof name !== 'string') {
+            return res.status(400).json({ error: 'Name is required and must be a string.' });
+        }
+        if (birthYear && typeof birthYear !== 'number') {
+            return res.status(400).json({ error: 'Birth year must be a number.' });
+        }
+
         const db = mongodb.getDatabase();
         const result = await db.collection('authors').insertOne({
             name,
@@ -56,6 +63,14 @@ const updateAuthor = async (req, res) => {
     try {
         const authorId = req.params.id;
         const { name, birthYear, nationality, bio } = req.body;
+
+        if (!name || typeof name !== 'string') {
+            return res.status(400).json({ error: 'Name is required and must be a string.' });
+        }
+        if (birthYear && typeof birthYear !== 'number') {
+            return res.status(400).json({ error: 'Birth year must be a number.' });
+        }
+
         const db = mongodb.getDatabase();
         const result = await db.collection('authors').updateOne(
             { _id: new ObjectId(authorId) },

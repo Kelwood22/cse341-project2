@@ -36,6 +36,17 @@ const getBookById = async (req, res) => {
 const createBook = async (req, res) => {
     try {
         const { title, authorId, genre, publishedYear, pageCount, rating, isbn, summary } = req.body;
+
+        if (!title || typeof title !== 'string') {
+            return res.status(400).json({ error: 'Title is required and must be a string.' });
+        }
+        if (!authorId || typeof authorId !== 'string') {
+            return res.status(400).json({ error: 'Author ID is required and must be a string.' });
+        }
+        if (!publishedYear || typeof publishedYear !== 'number') {
+            return res.status(400).json({ error: 'Published year is required and must be a number.' });
+        }
+
         const db = mongodb.getDatabase();
         const result = await db.collection('books').insertOne({
             title,
@@ -60,6 +71,16 @@ const updateBook = async (req, res) => {
     try {
         const bookId = req.params.id;
         const { title, authorId, genre, publishedYear, pageCount, rating, isbn, summary } = req.body;
+
+        if (!title || typeof title !== 'string') {
+            return res.status(400).json({ error: 'Title is required and must be a string.' });
+        }
+        if (!authorId || typeof authorId !== 'string') {
+            return res.status(400).json({ error: 'Author ID is required and must be a string.' });
+        }
+        if (!publishedYear || typeof publishedYear !== 'number') {
+            return res.status(400).json({ error: 'Published year is required and must be a number.' });
+        }
         const db = mongodb.getDatabase();
         const result = await db.collection('books').updateOne(
             { _id: new ObjectId(bookId) },

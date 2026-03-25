@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const booksController = require('../controllers/books');
+const isAuthenticated = require('../middleware/authenticate');
+
+console.log("BOOKS ROUTES LOADED WITH AUTH MIDDLEWARE");
+console.log("BOOKS isAuthenticated:", isAuthenticated);
 
 router.get('/',
     /* 
@@ -45,8 +49,9 @@ router.post('/',
             }
         }
     }
+    #swagger.security = [{ cookieAuth: [] }]
     */
-    booksController.createBook
+    isAuthenticated, booksController.createBook
 );
 
 router.put('/:id',
@@ -74,8 +79,9 @@ router.put('/:id',
             }
         }
     }
+    #swagger.security = [{ cookieAuth: [] }]
     */
-    booksController.updateBook
+    isAuthenticated, booksController.updateBook
 );
 
 router.delete('/:id',
@@ -83,8 +89,9 @@ router.delete('/:id',
     #swagger.tags = ['Books']
     #swagger.summary = 'Delete a book'
     #swagger.path = '/books/{id}'
+    #swagger.security = [{ cookieAuth: [] }]
     */
-    booksController.deleteBook
+    isAuthenticated, booksController.deleteBook
 );
 
 console.log('Books routes loaded');

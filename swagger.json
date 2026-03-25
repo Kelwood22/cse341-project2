@@ -7,7 +7,10 @@
   },
   "servers": [
     {
-      "url": "https://cse341-project2-rc8h.onrender.com/"
+      "url": "http://localhost:3000"
+    },
+    {
+      "url": "https://cse341-project2-rc8h.onrender.com"
     }
   ],
   "paths": {
@@ -43,10 +46,18 @@
           "400": {
             "description": "Bad Request"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "500": {
             "description": "Internal Server Error"
           }
         },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -128,6 +139,9 @@
           "400": {
             "description": "Bad Request"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "404": {
             "description": "Not Found"
           },
@@ -135,6 +149,11 @@
             "description": "Internal Server Error"
           }
         },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -180,13 +199,21 @@
           "200": {
             "description": "OK"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "404": {
             "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
       }
     },
     "/books": {
@@ -221,10 +248,18 @@
           "400": {
             "description": "Bad Request"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "500": {
             "description": "Internal Server Error"
           }
         },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -318,6 +353,9 @@
           "400": {
             "description": "Bad Request"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "404": {
             "description": "Not Found"
           },
@@ -325,6 +363,11 @@
             "description": "Internal Server Error"
           }
         },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -382,13 +425,30 @@
           "200": {
             "description": "OK"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "404": {
             "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "cookieAuth": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "connect.sid"
       }
     }
   }

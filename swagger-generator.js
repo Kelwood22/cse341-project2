@@ -17,8 +17,20 @@ const doc = {
         title: 'Books API',
         description: 'Books API documentation',
     },
-    host: 'cse341-project2-rc8h.onrender.com',
-    schemes: ['https'],
+    servers: [
+        { url: "http://localhost:3000" },
+        { url: "https://cse341-project2-rc8h.onrender.com" }
+    ],
+
+    components: {
+        securitySchemes: {
+            cookieAuth: {
+                type: 'apiKey',
+                in: 'cookie',
+                name: 'connect.sid',
+            }
+        }
+    }
 };
 
 const outputFile = './swagger.json';

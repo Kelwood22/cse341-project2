@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const authorsController = require('../controllers/authors');
+const isAuthenticated = require('../middleware/authenticate');
+
+console.log("AUTHORS ROUTES LOADED WITH AUTH MIDDLEWARE");
+console.log("AUTHORS isAuthenticated:", isAuthenticated);
 
 router.get('/',
     /* 
@@ -41,8 +45,9 @@ router.post('/',
             }
         }
     }
+    #swagger.security = [{ cookieAuth: [] }]
     */
-    authorsController.createAuthor
+    isAuthenticated, authorsController.createAuthor
 );
 
 router.put('/:id',
@@ -64,10 +69,11 @@ router.put('/:id',
                     }
                 }
             }
-        }
+        }   
     }
+    #swagger.security = [{ cookieAuth: [] }]
     */
-    authorsController.updateAuthor
+    isAuthenticated, authorsController.updateAuthor
 );
 
 router.delete('/:id',
@@ -75,8 +81,9 @@ router.delete('/:id',
     #swagger.tags = ['Authors']
     #swagger.summary = 'Delete an author'
     #swagger.path = '/authors/{id}'
+    #swagger.security = [{ cookieAuth: [] }]
     */
-    authorsController.deleteAuthor
+    isAuthenticated, authorsController.deleteAuthor
 );
 
 module.exports = router;
